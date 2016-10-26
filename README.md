@@ -67,7 +67,32 @@ class AudioViewController:UIViewVontroller{
   @IBOutlet weak var recordButton:UIButton!
   @IBOutlet weak var playButton:UIButton!
   var audioRecorder:AVAudioRecorder!
-  @IBAction func recordButtonPressed(sender:AnyObject){}
+  @IBAction func recordButtonPressed(sender:AnyObject){
+    //07:20
+    if !audioRecorder.isRecording{
+      let audioSession = AVAudioSession.sharedInstance()
+      do{
+        try audioSession.setActive(true)
+        audioRecorder.record()
+      }catch{
+        print(error)
+      }
+    
+    }else{
+      audioRecorder.stop()
+      let audioSession = AVAudioSession.sharedInstance()
+      do{
+       try audioSession.setActive(false)
+      }catch{
+        print(error)
+      }
+      if(self.verifyFileExists(){
+        playButton.isHidden=false
+      }else{
+        print("Error")
+      }
+    }
+  }
   @IBAction func playButtonPressed(sender:AnyObject){}
   
   func audioFileLocation()->String{ return NATemporaryDirectory().appending("audio.m4a")}
@@ -76,6 +101,21 @@ class AudioViewController:UIViewVontroller{
     let settings = [AVFormatIDKey:NSNumber.init(value:kAudioFormatAppleLossless),AVSampleRateKey:NSNumber.init(value:44100.0),AVNumberOfChannelsKey:NSNumber.init(value:1),AVLinearPCMbitDepthKey:NSNumber.init(value:16), AVEncoderAudioQualityKey:NSNumber.init(value:AVAudioQuality.high.rawValue)]
     
     return settings
+  }
+  
+  //06:01
+  func updateRecordButtonTitle(){
+    if audioRecorder.isRecording{
+      recordButton.setTitle("Recording..",for:.normal)
+    }else{
+      recordButton.setTitle("Record",for:.normal)
+    }
+  }
+  
+  //06:35
+  func verifyFileExists()->Bool{
+    let fileManager=FileManger.default
+    return fileManager.fileExists(atPath:self.audioFileLoaction())
   }
   
   
@@ -90,6 +130,8 @@ class AudioViewController:UIViewVontroller{
       print(error)
     }
   }
+  
+  
   
 }
 ```
