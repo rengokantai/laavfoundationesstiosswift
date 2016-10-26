@@ -57,3 +57,26 @@ AVAudioRecorder.record()
 audioRecorderDidFinishRecording
 audioRecorderEncodeErrorDidOccur
 ```
+
+###2 Record audio
+AudioViewController.swift
+```
+import UIKit
+import AVFoundation
+class AudioViewController:UIViewVontroller{
+  @IBOutlet weak var recordButton:UIButton!
+  @IBOutlet weak var playButton:UIButton!
+  var audioRecorder:AVAudioRecorder!
+  @IBAction func recordButtonPressed(sender:AnyObject){}
+  @IBAction func playButtonPressed(sender:AnyObject){}
+  
+  func audioFileLocation()->String{ return NATemporaryDirectory().appending("audio.m4a")}
+  
+  func audiorerderSettings()->[String:Any]{
+    let settings = [AVFormatIDKey:NSNumber.init(value:kAudioFormatAppleLossless),AVSampleRateKey:NSNumber.init(value:44100.0),AVNumberOfChannelsKey:NSNumber.init(value:1),AVLinearPCMbitDepthKey:NSNumber.init(value:16), AVEncoderAudioQualityKey:NSNumber.init(value:AVAudioQuality.high.rawValue)]
+    
+    return settings
+  }
+}
+```
+
