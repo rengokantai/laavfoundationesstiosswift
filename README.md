@@ -77,6 +77,20 @@ class AudioViewController:UIViewVontroller{
     
     return settings
   }
+  
+  
+  //04:10
+  func preparedAudioRecorder(){
+    let audioSession = AVAudioSession.sharedInstance()
+    do{
+      try audioSession.setCategory(AVAudioSessionPlayAndRecord)
+      try audioRecorder = AVAudioRecorder(url:URL(fileURLWithPath:self.audioFileLocation()),settings:self.audioRecorderSettings())
+      audioRecorder.prepareToRecord()
+    }catch{
+      print(error)
+    }
+  }
+  
 }
 ```
 
