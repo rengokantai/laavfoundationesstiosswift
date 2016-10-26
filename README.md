@@ -92,8 +92,12 @@ class AudioViewController:UIViewVontroller{
         print("Error")
       }
     }
+    self.updateRecordButtonTitle()
   }
-  @IBAction func playButtonPressed(sender:AnyObject){}
+  @IBAction func playButtonPressed(sender:AnyObject){
+    
+  
+  }
   
   func audioFileLocation()->String{ return NATemporaryDirectory().appending("audio.m4a")}
   
@@ -135,4 +139,43 @@ class AudioViewController:UIViewVontroller{
   
 }
 ```
+
+###3 Introduction to AVAudioPlayer
+```AVAudioPlayer``` allows you to play back audio from either a file or something that was captured and is still in memory.  
+
+The only time you'd want to consider something else is either when you're dealing with streaming content or you have a requirement for really low latency I/O. When dealing with streaming content, you want to use the ```AVPlayer``` class to do the job.
+
+####00:48
+```
+//single shot, or loop
+AVAudioPlayer.numberOfLoops()
+//play multiple files
+AVAudioPlayer.playAtTime(time:)
+AVAudioPlayer.volume
+AVAudioPlayer.pan
+AVAudioPlayer.rate
+```
+
+###4 Play back audio
+AudioViewController.swift
+```
+//00:19
+var audioPlayer:AVAudioPlayer!
+
+//01:00
+func playAudio(){
+  let audioSession = AVAudioSession.sharedInstance()
+  do{
+    try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+    try audioPlayer = AVAudioPlayer(contentsOf:URL(FileURLWithPath:self.audioFileLocation()))
+    audioPlayer.preparedToPlay()
+    audioPlayer.play()
+  }catch{}
+}
+@IBAction func playButtonPressed(sender:AnyObject){
+    
+  self.playAudio()
+  }
+```
+
 
