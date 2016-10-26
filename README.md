@@ -29,3 +29,8 @@ AVComposition
 UI notifications on main thread.  
 use ```NSThread,isMainThread```
 to test
+
+
+##2. Audio Recording
+###1 Introduction to AVAudioRecorder
+####01:31
