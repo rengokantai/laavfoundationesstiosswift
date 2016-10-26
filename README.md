@@ -34,3 +34,26 @@ to test
 ##2. Audio Recording
 ###1 Introduction to AVAudioRecorder
 ####01:31
+```
+AVCaptureAudioDataOutput
+OpenAL
+```
+####01:44
+before recording  
+AV Audio Session singleton
+```
+AVAudioSession.sharedInstance
+```
+####02:45
+```
+AVAudioRecorder.settings
+```
+Recordomg options:
+```
+AVAudioRecorder.record()
+```
+####04:40AVAudioRecorderDelegate
+```
+audioRecorderDidFinishRecording
+audioRecorderEncodeErrorDidOccur
+```
